@@ -168,9 +168,6 @@ done
 [[ -z $email ]] && die "Missing required email!"
 [[ -z $msg ]] && die "Missing required msg!"
 
-echo "$email"
-exit
-
 #### VARIABLES ####
 install_dir="/usr/share/gchatautorespond"
 template_dir="$install_dir/templated"
