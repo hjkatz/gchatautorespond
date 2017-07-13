@@ -173,7 +173,7 @@ install_dir="/usr/share/gchatautorespond"
 template_dir="$install_dir/templated"
 systemd_services_path="/usr/lib/systemd/system"
 service_name="gchatautorespond.service"
-DIR="$(dirname "$0")"
+DIR="$(readlink -f $(dirname "$0"))"
 
 #### MAIN PROGRAM ####
 
