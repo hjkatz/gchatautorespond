@@ -168,6 +168,9 @@ done
 [[ -z $email ]] && die "Missing required email!"
 [[ -z $msg ]] && die "Missing required msg!"
 
+echo "$email"
+exit
+
 #### VARIABLES ####
 install_dir="/usr/share/gchatautorespond"
 template_dir="$install_dir/templated"
@@ -190,7 +193,9 @@ fi
 color_echo yellow "Customizing service files..."
 mkdir -p $DIR/templated/
 cp -f $DIR/systemd/* $DIR/templated/
-perl -p -i -e "s{\{\{email\}\}}{${email}}" $DIR/templated/*
+export _TEMP_EMAIL="$email"
+perl -p -i -e "s{\{\{email\}\}}{\$ENV{_TEMP_EMAIL}}" $DIR/templated/*
+unset _TEMP_EMAIL
 perl -p -i -e "s{\{\{msg\}\}}{${msg}}" $DIR/templated/*
 
 color_echo yellow "Copying over systemd service files..."
