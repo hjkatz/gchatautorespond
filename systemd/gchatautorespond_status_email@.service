@@ -1,0 +1,8 @@
+[Unit]
+Description=Gchat AutoRespond Bot status email for %I
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/systemd-email {{email}} %i
+User=nobody
+Group=systemd-journal

@@ -1,0 +1,30 @@
+[Unit]
+# Free form description field
+Description=Gchat AutoRespond Bot
+
+# Load this unit only if the specified units are loaded:
+#   - Network
+Wants=NetworkManager.service
+
+# send a status email when this unit has a failure
+OnFailure=gchatautorespond_status_email@%n.service
+
+[Service]
+# The command to execute to start the service
+ExecStart=/usr/share/gchatautorespond/standalone_bot.py run {{email}} {{msg}}
+
+# Always restart the service if the main PID disappears in 3 second intervals
+Restart=always
+RestartSec=3
+
+StartLimitInterval=20s
+StartLimitBurst=3
+
+# setup kill signals and options
+KillMode=process
+KillSignal=SIGTERM
+TimeoutSec=20s
+
+# If the service is stopped with systemctl stop
+# then only kill the main process not it's children.
+KillMode=process

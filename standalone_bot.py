@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 """gchatautorespond standalone (self-hosted) bot.
 
 Use `auth` once to perform oauth and store a credentials file to the working directory.
@@ -16,6 +19,7 @@ Options:
 """
 
 import os
+import datetime
 
 from docopt import docopt
 import httplib2  # included with oauth2client
@@ -65,7 +69,7 @@ class StandaloneBot(AutoRespondBot):
 
     @property
     def oauth_filename(self):
-        return "%s.oauth_credentials" % self.email
+        return os.path.dirname(os.path.abspath(__file__)) + "/%s.oauth_credentials" % self.email
 
     @property
     def oauth_storage(self):
@@ -116,6 +120,15 @@ def perform_oauth():
 
     return credentials
 
+def get_message(arg):
+    if os.path.isfile(arg):
+        with open(arg, 'r') as file:
+            message = file.read()
+    else:
+        message = arg
+
+    return message
+
 
 if __name__ == '__main__':
     arguments = docopt(__doc__)
@@ -123,6 +136,7 @@ if __name__ == '__main__':
     if arguments['auth']:
         perform_oauth()
     elif arguments['run']:
-        bot = StandaloneBot(arguments['<email>'], None, None, arguments['<autoresponse>'], None)
+        message = get_message(arguments['<autoresponse>'])
+        bot = StandaloneBot(arguments['<email>'], None, None, message, None, datetime.timedelta(seconds=10), False)
         bot.connect()
         bot.process(block=True)
