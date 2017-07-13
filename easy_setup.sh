@@ -158,7 +158,7 @@ while [ ! $# -eq 0 ] ; do
             ;;
         --msg)
             shift
-            message="$1"
+            msg="$1"
             ;;
     esac
     shift
