@@ -197,7 +197,7 @@ color_echo yellow "Copying over systemd service files..."
 cp -f $DIR/systemd/* $systemd_services_path/
 
 color_echo yellow "Reloading systemd daemons..."
-systemctl reload-daemon || die "Failed to reload systemctl daemons! Check journalctl for more information."
+systemctl daemon-reload || die "Failed to reload systemctl daemons! Check journalctl for more information."
 
 color_echo yellow "Restarting $service_name..."
 systemctl restart $service_name || die "Failed to restart $service_name! Check journalctl for more information."
