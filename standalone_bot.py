@@ -124,11 +124,13 @@ def get_message(arg):
     if os.path.isfile(arg):
         with open(arg, 'r') as file:
             message = file.read()
+    elif os.path.isfile(os.path.dirname(os.path.abspath(__file__)) + "/" + arg):
+        with open(os.path.dirname(os.path.abspath(__file__)) + "/" + arg, 'r') as file:
+            message = file.read()
     else:
         message = arg
 
     return message
-
 
 if __name__ == '__main__':
     arguments = docopt(__doc__)
