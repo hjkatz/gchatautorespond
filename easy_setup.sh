@@ -194,7 +194,7 @@ perl -p -i -e "s{\{\{email\}\}}{$email}" $DIR/templated/*
 perl -p -i -e "s{\{\{msg\}\}}{$msg}" $DIR/templated/*
 
 color_echo yellow "Copying over systemd service files..."
-cp -f $DIR/systemd/* $systemd_services_path/
+cp -f $DIR/templated/* $systemd_services_path/
 
 color_echo yellow "Reloading systemd daemons..."
 systemctl daemon-reload || die "Failed to reload systemctl daemons! Check journalctl for more information."
