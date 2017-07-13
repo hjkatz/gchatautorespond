@@ -190,8 +190,8 @@ fi
 color_echo yellow "Customizing service files..."
 mkdir -p $DIR/templated/
 cp -f $DIR/systemd/* $DIR/templated/
-perl -p -i -e "s{\{\{email\}\}}{$email}" $DIR/templated/*
-perl -p -i -e "s{\{\{msg\}\}}{$msg}" $DIR/templated/*
+perl -p -i -e "s{\{\{email\}\}}{${email}}" $DIR/templated/*
+perl -p -i -e "s{\{\{msg\}\}}{${msg}}" $DIR/templated/*
 
 color_echo yellow "Copying over systemd service files..."
 cp -f $DIR/templated/* $systemd_services_path/
